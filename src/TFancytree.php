@@ -1,6 +1,6 @@
 <?php
 
-namespace MarceloNees\Fancytree;
+namespace MarceloNees\TFancytree;
 
 use Adianti\Widget\Base\TElement;
 use Adianti\Widget\Base\TScript;

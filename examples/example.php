@@ -1,7 +1,7 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use MarceloNees\Fancytree\TFancytree;
+use MarceloNees\TFancytree;
 use Adianti\Widget\Base\TElement;
 use Adianti\Control\TAction;
 
