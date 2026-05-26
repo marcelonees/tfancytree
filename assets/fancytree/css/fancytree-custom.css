@@ -1,19 +1,21 @@
 /* ================================================
-   Fancytree Custom Styles - Generic Version
-   Usa .fancytree-tree como seletor principal
+   Fancytree Custom Styles - Versão Compacta
    ================================================ */
 
 /* Container principal da árvore */
 .fancytree-tree ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .fancytree-tree ul[role='tree'] {
     padding: 0px;
+    margin: 0;
 }
 
 .fancytree-tree span {
-    margin: 2px;
+    margin: 0px;  /* Remove margem externa */
     font-size: small;
 }
 
@@ -21,23 +23,25 @@
     background-color: white;
 }
 
-/* Container da árvore */
+/* Container da árvore - reduz altura da linha */
 .fancytree-tree .fancytree-container {
     font-family: 'Open Sans', 'Segoe UI', sans-serif;
-    font-size: 13px;
+    font-size: 12px;  /* Reduzido de 13px */
     background: transparent !important;
+    line-height: 1.2;  /* Adiciona line-height menor */
 }
 
-/* Nós normais */
+/* Nós normais - reduz padding */
 .fancytree-tree span.fancytree-title {
     color: #333;
     font-weight: normal;
-    padding: 4px 6px 4px 4px;
+    padding: 2px 4px 2px 4px;  /* Reduzido de 4px 6px 4px 4px */
     border-radius: 3px;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;  /* Reduzido de 8px */
+    font-size: 12px;
 }
 
 /* Hover nos nós */
@@ -54,20 +58,28 @@
     font-weight: 500;
 }
 
-/* Checkbox personalizado */
+/* Checkbox personalizado - reduz tamanho */
 .fancytree-tree span.fancytree-checkbox {
     background-position: 0 0;
+    width: 14px;
+    height: 14px;
+    margin: 0 2px;
 }
 
 .fancytree-tree span.fancytree-checkbox:hover {
     opacity: 0.8;
 }
 
-/* Ícones expandir/colapsar */
+/* Ícones expandir/colapsar - reduz tamanho */
 .fancytree-tree span.fancytree-expander {
     color: #5c6bc0;
-    font-size: 14px;
+    font-size: 12px;  /* Reduzido de 14px */
     transition: transform 0.2s ease;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fancytree-tree span.fancytree-expander:hover {
@@ -79,11 +91,16 @@
     transform: rotate(90deg);
 }
 
-/* Ícones dos nós (Font Awesome) */
+/* Ícones dos nós (Font Awesome) - reduz tamanho */
 .fancytree-tree span.fancytree-icon {
     color: #5c6bc0;
-    font-size: 14px;
-    margin-right: 4px;
+    font-size: 12px;  /* Reduzido de 14px */
+    margin-right: 2px;  /* Reduzido de 4px */
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Pastas com ícone especial */
@@ -92,39 +109,46 @@
     color: #ffb74d;
 }
 
-/* Nós filhos (recuo visual) */
+/* Nós filhos (recuo visual) - reduz margem */
 .fancytree-tree .fancytree-node {
-    margin: 2px 0;
+    margin: 0px;  /* Remove margem entre nós */
+    padding: 0px;
+}
+
+/* Remove espaçamento entre linhas da árvore */
+.fancytree-tree .fancytree-node > ul {
+    margin: 0;
+    padding-left: 16px;  /* Recuo reduzido */
 }
 
 /* ================================================
-   Botões de Ação nas Camadas
+   Botões de Ação nas Camadas - reduz tamanho
    ================================================ */
 
 /* Estilo para os botões de ação nas camadas */
 .fancytree-tree .layer-actions {
     display: inline-flex;
-    gap: 3px;
-    margin-left: 8px;
+    gap: 2px;  /* Reduzido de 3px */
+    margin-left: 4px;  /* Reduzido de 8px */
     vertical-align: middle;
 }
 
 .fancytree-tree .layer-actions .btn-xs {
-    padding: 2px 6px;
-    font-size: medium;
-    line-height: 1.5;
-    min-width: 24px;
-    border-radius: 3px;
+    padding: 1px 4px;  /* Reduzido de 2px 6px */
+    font-size: 10px;  /* Reduzido */
+    line-height: 1.2;
+    min-width: 18px;  /* Reduzido de 24px */
+    border-radius: 2px;
     text-align: center;
 }
 
 .fancytree-tree .layer-actions .btn-xs i {
-    font-size: 10px;
+    font-size: 9px;  /* Reduzido de 10px */
 }
 
 /* Hover effects */
 .fancytree-tree .layer-actions .btn-xs:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);  /* Reduzido o efeito de escala */
     transition: transform 0.2s;
 }
 
@@ -134,7 +158,7 @@
     cursor: pointer;
 }
 
-/* Botões específicos */
+/* Botões específicos mantêm cores mas mais compactos */
 .fancytree-tree .layer-actions .btn-info {
     background-color: #29b6f6 !important;
     border-color: #29b6f6 !important;
@@ -185,18 +209,18 @@
    ================================================ */
 
 .fancytree-tree .fancytree-container::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;  /* Reduzido de 8px */
+    height: 6px;
 }
 
 .fancytree-tree .fancytree-container::-webkit-scrollbar-track {
     background: #f1f1f1;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .fancytree-tree .fancytree-container::-webkit-scrollbar-thumb {
     background: #c1c1c1;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .fancytree-tree .fancytree-container::-webkit-scrollbar-thumb:hover {
@@ -209,16 +233,16 @@
 
 .fancytree-tree .fancytree-ext-filter {
     border-bottom: 1px solid #e0e0e0;
-    padding: 5px;
+    padding: 3px;  /* Reduzido de 5px */
     background: #fafafa;
 }
 
 .fancytree-tree .fancytree-ext-filter input {
     border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px 8px;
-    font-size: 12px;
-    width: 200px;
+    border-radius: 3px;
+    padding: 3px 6px;  /* Reduzido de 5px 8px */
+    font-size: 11px;
+    width: 180px;  /* Reduzido de 200px */
 }
 
 .fancytree-tree .fancytree-ext-filter input:focus {
@@ -247,17 +271,19 @@
 
 .fancytree-tree .fancytree-node .fancytree-checkbox.radio {
     border-radius: 50%;
+    width: 12px;
+    height: 12px;
 }
 
 .fancytree-tree .fancytree-node .fancytree-checkbox.radio::before {
     content: '';
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     background: #5c6bc0;
     border-radius: 50%;
-    top: 2px;
-    left: 2px;
+    top: 3px;
+    left: 3px;
     transform: scale(0);
     transition: transform 0.1s ease;
 }
@@ -271,16 +297,16 @@
    ================================================ */
 
 .fancytree-tree.fancytree-tree-compact .fancytree-title {
-    padding: 2px 4px;
-    font-size: 12px;
+    padding: 1px 3px;
+    font-size: 11px;
 }
 
 .fancytree-tree.fancytree-tree-compact .fancytree-node {
-    margin: 1px 0;
+    margin: 0;
 }
 
 .fancytree-tree.fancytree-tree-compact .fancytree-icon {
-    font-size: 12px;
+    font-size: 11px;
 }
 
 /* ================================================
@@ -303,8 +329,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 6px 10px;
+    font-size: 11px;
     z-index: 1000;
 }
 
@@ -315,7 +341,7 @@
 .fancytree-tree .fancytree-title {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 /* ================================================
@@ -324,19 +350,32 @@
 
 @media (max-width: 768px) {
     .fancytree-tree .fancytree-container {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .fancytree-tree .layer-actions {
-        gap: 3px;
+        gap: 2px;
     }
     
     .fancytree-tree .layer-actions .btn-xs {
-        padding: 1px 4px !important;
-        font-size: 10px !important;
+        padding: 1px 3px !important;
+        font-size: 9px !important;
+        min-width: 16px;
     }
     
     .fancytree-tree .fancytree-title {
-        padding: 2px 4px !important;
+        padding: 1px 3px !important;
+    }
+    
+    .fancytree-tree span.fancytree-icon {
+        font-size: 10px;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .fancytree-tree span.fancytree-expander {
+        font-size: 10px;
+        width: 14px;
+        height: 14px;
     }
 }
