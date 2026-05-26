@@ -1,0 +1,30 @@
+{
+  "name": "marcelonees/tfancytree",
+  "description": "Componente Fancytree para o Framework Adianti - Tree view com suporte a checkboxes, drag & drop, edição inline e lazy loading",
+  "keywords": [
+    "adianti",
+    "fancytree",
+    "treeview",
+    "widget",
+    "php"
+  ],
+  "homepage": "https://github.com/marcelonees/tfancytree",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Seu Nome",
+      "email": "seu@email.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "adianti/adianti-framework": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MarceloNees\\Fancytree\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}

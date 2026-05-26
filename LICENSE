@@ -1,0 +1,12 @@
+
+## Instalação no seu Projeto Adianti
+
+```bash
+# Via Composer (após publicar no GitHub)
+composer config repositories.tfancytree vcs https://github.com/marcelonees/tfancytree
+composer require marcelonees/tfancytree:dev-main
+
+# Ou instalação manual
+git clone https://github.com/marcelonees/tfancytree.git
+cp -r tfancytree/src/* lib/
+cp -r tfancytree/assets/* public/assets/
