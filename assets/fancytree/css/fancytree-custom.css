@@ -1,0 +1,342 @@
+/* ================================================
+   Fancytree Custom Styles - Generic Version
+   Usa .fancytree-tree como seletor principal
+   ================================================ */
+
+/* Container principal da árvore */
+.fancytree-tree ul {
+    list-style-type: none;
+}
+
+.fancytree-tree ul[role='tree'] {
+    padding: 0px;
+}
+
+.fancytree-tree span {
+    margin: 2px;
+    font-size: small;
+}
+
+.fancytree-tree {
+    background-color: white;
+}
+
+/* Container da árvore */
+.fancytree-tree .fancytree-container {
+    font-family: 'Open Sans', 'Segoe UI', sans-serif;
+    font-size: 13px;
+    background: transparent !important;
+}
+
+/* Nós normais */
+.fancytree-tree span.fancytree-title {
+    color: #333;
+    font-weight: normal;
+    padding: 4px 6px 4px 4px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Hover nos nós */
+.fancytree-tree span.fancytree-title:hover {
+    background-color: #e8eaf6 !important;
+    color: #283593 !important;
+}
+
+/* Nó selecionado */
+.fancytree-tree span.fancytree-active .fancytree-title,
+.fancytree-tree span.fancytree-selected .fancytree-title {
+    background-color: #5c6bc0 !important;
+    color: #fff !important;
+    font-weight: 500;
+}
+
+/* Checkbox personalizado */
+.fancytree-tree span.fancytree-checkbox {
+    background-position: 0 0;
+}
+
+.fancytree-tree span.fancytree-checkbox:hover {
+    opacity: 0.8;
+}
+
+/* Ícones expandir/colapsar */
+.fancytree-tree span.fancytree-expander {
+    color: #5c6bc0;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.fancytree-tree span.fancytree-expander:hover {
+    color: #283593;
+}
+
+/* Pasta expandida */
+.fancytree-tree span.fancytree-expanded span.fancytree-expander {
+    transform: rotate(90deg);
+}
+
+/* Ícones dos nós (Font Awesome) */
+.fancytree-tree span.fancytree-icon {
+    color: #5c6bc0;
+    font-size: 14px;
+    margin-right: 4px;
+}
+
+/* Pastas com ícone especial */
+.fancytree-tree .fancytree-node[data-icon="fas fa-folder"] .fancytree-icon,
+.fancytree-tree .fancytree-node[data-icon="fas fa-folder-open"] .fancytree-icon {
+    color: #ffb74d;
+}
+
+/* Nós filhos (recuo visual) */
+.fancytree-tree .fancytree-node {
+    margin: 2px 0;
+}
+
+/* ================================================
+   Botões de Ação nas Camadas
+   ================================================ */
+
+/* Estilo para os botões de ação nas camadas */
+.fancytree-tree .layer-actions {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.fancytree-tree .layer-actions .btn-xs {
+    padding: 2px 6px;
+    font-size: medium;
+    line-height: 1.5;
+    min-width: 24px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.fancytree-tree .layer-actions .btn-xs i {
+    font-size: 10px;
+}
+
+/* Hover effects */
+.fancytree-tree .layer-actions .btn-xs:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+/* Tooltip personalizado */
+.fancytree-tree .layer-actions .btn-xs[title] {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Botões específicos */
+.fancytree-tree .layer-actions .btn-info {
+    background-color: #29b6f6 !important;
+    border-color: #29b6f6 !important;
+    color: #fff;
+}
+
+.fancytree-tree .layer-actions .btn-info:hover {
+    background-color: #03a9f4 !important;
+}
+
+.fancytree-tree .layer-actions .btn-success {
+    background-color: #66bb6a !important;
+    border-color: #66bb6a !important;
+    color: #fff;
+}
+
+.fancytree-tree .layer-actions .btn-success:hover {
+    background-color: #4caf50 !important;
+}
+
+.fancytree-tree .layer-actions .btn-warning {
+    background-color: #ffa726 !important;
+    border-color: #ffa726 !important;
+    color: #fff;
+}
+
+.fancytree-tree .layer-actions .btn-warning:hover:not(:disabled) {
+    background-color: #ff9800 !important;
+}
+
+.fancytree-tree .layer-actions .btn-warning:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.fancytree-tree .layer-actions .btn-secondary {
+    background-color: #9e9e9e !important;
+    border-color: #9e9e9e !important;
+    color: #fff;
+}
+
+.fancytree-tree .layer-actions .btn-secondary:hover {
+    background-color: #757575 !important;
+}
+
+/* ================================================
+   Barra de rolagem personalizada
+   ================================================ */
+
+.fancytree-tree .fancytree-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.fancytree-tree .fancytree-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.fancytree-tree .fancytree-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.fancytree-tree .fancytree-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* ================================================
+   Painel de filtro/pesquisa
+   ================================================ */
+
+.fancytree-tree .fancytree-ext-filter {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px;
+    background: #fafafa;
+}
+
+.fancytree-tree .fancytree-ext-filter input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+    width: 200px;
+}
+
+.fancytree-tree .fancytree-ext-filter input:focus {
+    border-color: #5c6bc0;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92, 107, 192, 0.1);
+}
+
+/* Status de filtro */
+.fancytree-tree .fancytree-ext-filter span.fancytree-title {
+    transition: all 0.2s ease;
+}
+
+.fancytree-tree .fancytree-ext-filter-hide span.fancytree-title {
+    opacity: 0.5;
+}
+
+.fancytree-tree .fancytree-ext-filter-match span.fancytree-title {
+    background-color: #fff9c4 !important;
+    font-weight: bold;
+}
+
+/* ================================================
+   Radiogroup
+   ================================================ */
+
+.fancytree-tree .fancytree-node .fancytree-checkbox.radio {
+    border-radius: 50%;
+}
+
+.fancytree-tree .fancytree-node .fancytree-checkbox.radio::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #5c6bc0;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transform: scale(0);
+    transition: transform 0.1s ease;
+}
+
+.fancytree-tree .fancytree-node .fancytree-checkbox.radio.checked::before {
+    transform: scale(1);
+}
+
+/* ================================================
+   Estilo compacto para a árvore (opcional)
+   ================================================ */
+
+.fancytree-tree.fancytree-tree-compact .fancytree-title {
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+.fancytree-tree.fancytree-tree-compact .fancytree-node {
+    margin: 1px 0;
+}
+
+.fancytree-tree.fancytree-tree-compact .fancytree-icon {
+    font-size: 12px;
+}
+
+/* ================================================
+   Container no tema GeoJaragua
+   ================================================ */
+
+.tframe .fancytree-tree {
+    margin: 5px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: auto;
+}
+
+/* ================================================
+   Popup da árvore
+   ================================================ */
+
+.fancytree-popup {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 8px 12px;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+/* ================================================
+   Ajuste para o título do nó
+   ================================================ */
+
+.fancytree-tree .fancytree-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ================================================
+   Responsividade
+   ================================================ */
+
+@media (max-width: 768px) {
+    .fancytree-tree .fancytree-container {
+        font-size: 12px;
+    }
+    
+    .fancytree-tree .layer-actions {
+        gap: 3px;
+    }
+    
+    .fancytree-tree .layer-actions .btn-xs {
+        padding: 1px 4px !important;
+        font-size: 10px !important;
+    }
+    
+    .fancytree-tree .fancytree-title {
+        padding: 2px 4px !important;
+    }
+}

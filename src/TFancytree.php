@@ -13,308 +13,222 @@ class TFancytree extends TElement
 {
     private $id;
     private $source;
-    private $height;
-    private $width;
+    private $width = '100%';
+    private $height = '500px';
     private $checkbox;
     private $selectMode;
     private $dragDrop;
     private $onClickAction;
     private $onSelectAction;
+    private $onLazyLoadAction;
     private $selectedKeys;
     private $expandedKeys;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct('div');
         $this->id = 'tfancytree_' . mt_rand(1000000000, 1999999999);
-        $this->{'id'} = $this->id;
-        $this->selectMode = 2;
+        $this->selectMode = 3;
     }
 
-    /**
-     * Set the tree source data
-     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function setSource($source)
     {
         $this->source = $source;
     }
 
-    /**
-     * Set size
-     */
     public function setSize($width, $height)
     {
-        $this->setWidth($width);
-        $this->setHeight($height);
+        $this->width = is_numeric($width) ? "{$width}px" : $width;
+        $this->height = is_numeric($height) ? "{$height}px" : $height;
     }
 
-    /**
-     * Set height
-     */
-    public function setHeight($height)
-    {
-        $this->height = $height;
-        if (is_numeric($height)) {
-            $this->{'style'} = "height: {$height}px; overflow: auto;";
-        } else {
-            $this->{'style'} = "height: {$height}; overflow: auto;";
-        }
-    }
-
-    /**
-     * Set width
-     */
     public function setWidth($width)
     {
-        $this->width = $width;
-        if (is_numeric($width)) {
-            $this->{'style'} = (isset($this->{'style'}) ? $this->{'style'} : '') . "width: {$width}px;";
-        } else {
-            $this->{'style'} = (isset($this->{'style'}) ? $this->{'style'} : '') . "width: {$width};";
-        }
+        $this->width = is_numeric($width) ? "{$width}px" : $width;
     }
 
-    /**
-     * Enable checkboxes
-     */
+    public function setHeight($height)
+    {
+        $this->height = is_numeric($height) ? "{$height}px" : $height;
+    }
+
     public function setCheckbox($checkbox)
     {
         $this->checkbox = $checkbox;
     }
 
-    /**
-     * Set selection mode
-     */
     public function setSelectMode($mode)
     {
         $this->selectMode = $mode;
     }
 
-    /**
-     * Enable drag & drop
-     */
     public function setDragDrop($dragDrop)
     {
         $this->dragDrop = $dragDrop;
     }
 
-    /**
-     * Set selected keys
-     */
     public function setSelectedKeys($keys)
     {
         $this->selectedKeys = $keys;
     }
 
-    /**
-     * Set expanded keys
-     */
     public function setExpandedKeys($keys)
     {
         $this->expandedKeys = $keys;
     }
 
-    /**
-     * Set onClick action
-     */
     public function setOnClick(TAction $action)
     {
         $this->onClickAction = $action;
     }
 
-    /**
-     * Set onSelect action
-     */
     public function setOnSelect(TAction $action)
     {
         $this->onSelectAction = $action;
     }
 
-    /**
-     * Build node from array
-     */
-    private function buildNode($node)
+    public function setOnLazyLoad(TAction $action)
     {
-        $fancyNode = [];
-
-        if (isset($node['id'])) {
-            $fancyNode['key'] = (string) $node['id'];
-        } elseif (isset($node['key'])) {
-            $fancyNode['key'] = (string) $node['key'];
-        }
-
-        if (isset($node['text'])) {
-            $fancyNode['title'] = $node['text'];
-        } elseif (isset($node['title'])) {
-            $fancyNode['title'] = $node['title'];
-        }
-
-        if (isset($node['children']) && !empty($node['children'])) {
-            $fancyNode['children'] = [];
-            foreach ($node['children'] as $child) {
-                $fancyNode['children'][] = $this->buildNode($child);
-            }
-        } elseif (isset($node['lazy']) && $node['lazy'] === true) {
-            $fancyNode['lazy'] = true;
-        }
-
-        if (isset($node['expanded']) && $node['expanded']) {
-            $fancyNode['expanded'] = true;
-        }
-
-        if (isset($node['selected']) && $node['selected']) {
-            $fancyNode['selected'] = true;
-        }
-
-        if (isset($node['icon'])) {
-            $fancyNode['icon'] = $node['icon'];
-        }
-
-        if (isset($node['folder'])) {
-            $fancyNode['folder'] = $node['folder'];
-        }
-
-        return $fancyNode;
+        $this->onLazyLoadAction = $action;
     }
 
-    /**
-     * Create the tree (similar to createMap)
-     */
     public function createTree()
     {
-        // Verifica se os arquivos necessários existem
-        $requiredFiles = [
-            'vendor/marcelonees/tfancytree/assets/jquery-ui/css/jquery-ui.css',
-            'vendor/marcelonees/tfancytree/assets/jquery-ui/js/jquery-ui.min.js',
-            'vendor/marcelonees/tfancytree/assets/fancytree/css/ui.fancytree.min.css',
-            'vendor/marcelonees/tfancytree/assets/fancytree/js/jquery.fancytree-all-deps.min.js'
-        ];
+        $treeId = $this->id;
 
-        foreach ($requiredFiles as $file) {
-            if (!file_exists($file)) {
-                throw new Exception("Arquivo necessário não encontrado: {$file}");
-            }
-        }
+        /* Usa os dados diretamente, sem processamento */
+        $sourceJson = json_encode($this->source);
+        $hasCheckbox = $this->checkbox ? 'true' : 'false';
+        $selectMode = (int) $this->selectMode;
 
-        // Processar source
-        $processedSource = [];
-        foreach ($this->source as $node) {
-            $processedSource[] = $this->buildNode($node);
-        }
-        $sourceJson = json_encode($processedSource);
-
-        // Preparar configuração
-        $config = [
-            'source' => $processedSource,
-            'checkbox' => $this->checkbox === true,
-            'selectMode' => (int) $this->selectMode
-        ];
-
-        if ($this->dragDrop) {
-            $config['dnd'] = ['autoExpandMS' => 1000];
-        }
-
-        if ($this->selectedKeys && is_array($this->selectedKeys)) {
-            $config['selectedKeys'] = $this->selectedKeys;
-        }
-
-        if ($this->expandedKeys && is_array($this->expandedKeys)) {
-            $config['expandedKeys'] = $this->expandedKeys;
-        }
-
-        $configJson = json_encode($config);
-
-        // Preparar eventos
-        $events = [];
+        /* Evento de clique */
+        $clickHandler = '';
         if ($this->onClickAction) {
             $serializedAction = $this->onClickAction->serialize(false);
-            $events[] = "click: function(event, data) { __adianti_ajax_exec('{$serializedAction}&key=' + encodeURIComponent(data.node.key)); }";
+            $clickHandler = ",
+            click: function(event, data) {
+                __adianti_ajax_exec('{$serializedAction}&key=' + encodeURIComponent(data.node.key));
+            }
+            ";
         }
 
+        /* Evento de selecao */
+        $selectHandler = '';
         if ($this->onSelectAction) {
             $serializedAction = $this->onSelectAction->serialize(false);
-            $events[] = "select: function(event, data) { var keys = data.tree.getSelectedKeys(); __adianti_ajax_exec('{$serializedAction}&keys=' + JSON.stringify(keys)); }";
+            $selectHandler = ",
+            select: function(event, data) {
+                var keys = JSON.stringify(data.tree.getSelectedKeys());
+                __adianti_ajax_exec('{$serializedAction}&keys=' + keys);
+            }
+            ";
         }
 
-        $eventsStr = !empty($events) ? ', ' . implode(', ', $events) : '';
+        /* Evento de lazy loading */
+        $lazyHandler = '';
+        if ($this->onLazyLoadAction) {
+            $serializedAction = $this->onLazyLoadAction->serialize(false);
+            $lazyHandler = ",
+            lazyLoad: function(event, data) {
+                var key = encodeURIComponent(data.node.key);
+                $.getJSON('index.php?{$serializedAction}&key=' + key, function(response) {
+                    data.result = response;
+                });
+            }
+            ";
+        }
 
-        // Garante que o CSS seja carregado primeiro
+        /* Carrega CSS */
         TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/jquery-ui/css/jquery-ui.css');
         TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/fancytree/css/ui.fancytree.min.css');
+        TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/fancytree/css/fancytree-custom.css');
 
-        // Cria o sistema de carregamento robusto
+        /* Script de inicializacao */
         TScript::create("
-        /* Função principal de inicialização */
-        function initializeTree_{$this->id}() {
-            try {
-                $('#{$this->id}').fancytree({$configJson}{$eventsStr});
-                console.log('Fancytree inicializado com sucesso!');
-            } catch(initError) {
-                console.error('Erro na inicialização da árvore:', initError);
-                $('#{$this->id}').html('<div style=\"padding:20px;color:red;\">Erro ao carregar a árvore</div>');
-            }
-        }
-        
-        /* Carrega os scripts necessários em ordem */
-        var requiredScripts = [
-            'vendor/marcelonees/tfancytree/assets/jquery-ui/js/jquery-ui.min.js',
-            'vendor/marcelonees/tfancytree/assets/fancytree/js/jquery.fancytree-all-deps.min.js'
-        ];
-        
-        /* Função para carregar scripts sequencialmente */
-        function loadScript(scripts, callback) {
-            if (scripts.length === 0) {
-                callback();
-                return;
-            }
+        $(document).ready(function() {
+            var scripts = [
+                'vendor/marcelonees/tfancytree/assets/jquery-ui/js/jquery-ui.min.js',
+                'vendor/marcelonees/tfancytree/assets/fancytree/js/jquery.fancytree-all-deps.min.js'
+            ];
+            var loaded = 0;
             
-            var currentScript = scripts.shift();
-            $.getScript(currentScript)
-                .done(function() {
-                    console.log('Script carregado:', currentScript);
-                    loadScript(scripts, callback);
-                })
-                .fail(function() {
-                    console.error('Falha ao carregar:', currentScript);
-                    loadScript(scripts, callback);
+            function loadTree() {
+                $('#{$treeId}').fancytree({
+                    extensions: ['glyph', 'filter'],
+                    filter: {
+                        counter: false,
+                        mode: 'hide'
+                    },
+                    checkbox: {$hasCheckbox},
+                    selectMode: {$selectMode},
+                    glyph: {
+                        preset: 'awesome5',
+                        map: {}
+                    },
+                    source: {$sourceJson}
+                    {$clickHandler}
+                    {$selectHandler}
+                    {$lazyHandler}
                 });
-        }
-        
-        /* Inicia o processo de carregamento */
-        loadScript(requiredScripts, function() {
-            /* Verifica se todos os requisitos estão carregados */
-            if (typeof $.fn.fancytree === 'undefined') {
-                console.error('Fancytree não carregado corretamente');
-                $('#{$this->id}').html('<div style=\"padding:20px;color:red;\">Biblioteca Fancytree não carregada</div>');
-                return;
+                console.log('Arvore inicializada: {$treeId}');
+                
+                /* Configurar radiogroups se existirem */
+                $('#{$treeId}').on('nodeClick', function(event, data) {
+                    var node = data.node;
+                    if (node.data.radiogroup === true && node.parent) {
+                        var siblings = node.parent.children;
+                        for (var i = 0; i < siblings.length; i++) {
+                            if (siblings[i] !== node && siblings[i].selected) {
+                                siblings[i].setSelected(false);
+                            }
+                        }
+                    }
+                });
             }
             
-            /* Executa a inicialização */
-            setTimeout(initializeTree_{$this->id}, 100);
+            function checkLoaded() {
+                loaded++;
+                if (loaded === scripts.length) {
+                    if (typeof $.fn.fancytree !== 'undefined') {
+                        loadTree();
+                    } else {
+                        console.error('Fancytree nao carregado');
+                    }
+                }
+            }
+            
+            for (var i = 0; i < scripts.length; i++) {
+                $.getScript(scripts[i]).always(checkLoaded);
+            }
         });
         ");
     }
 
-    /**
-     * Show the widget
-     */
     public function show()
     {
         if (empty($this->source)) {
-            throw new Exception(AdiantiCoreTranslator::translate('You must call ^1 before ^2', __METHOD__ . '::setSource', 'show'));
+            throw new Exception((string) AdiantiCoreTranslator::translate('You must call ^1 before ^2', __METHOD__ . '::setSource', 'show'));
         }
 
-        // Adiciona estilo à div
-        $currentStyle = isset($this->{'style'}) ? $this->{'style'} : '';
-        $this->{'style'} = $currentStyle . ';border:1px solid #ddd;background:#fff;';
+        /* Estilo do container */
+        $style = new TStyle("#{$this->id}");
+        $style->width = $this->width;
+        $style->height = $this->height;
+        $style->border = '1px solid #ccc';
+        $style->show();
 
-        // Mostra a div
-        parent::show();
+        /* Container da arvore - usa classe generica fancytree-tree */
+        $content = new TElement('div');
+        $content->id = $this->id;
+        $content->class = 'fancytree-tree';
 
-        // Cria a árvore
+        parent::add($content);
         $this->createTree();
+        parent::show();
     }
 }
