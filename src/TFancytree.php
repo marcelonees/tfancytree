@@ -144,7 +144,6 @@ class TFancytree extends TElement
         }
 
         /* Carrega CSS */
-        TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/jquery-ui/css/jquery-ui.css');
         TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/fancytree/css/ui.fancytree.min.css');
         TStyle::importFromFile('vendor/marcelonees/tfancytree/assets/fancytree/css/fancytree-custom.css');
 
@@ -152,7 +151,6 @@ class TFancytree extends TElement
         TScript::create("
         $(document).ready(function() {
             var scripts = [
-                'vendor/marcelonees/tfancytree/assets/jquery-ui/js/jquery-ui.min.js',
                 'vendor/marcelonees/tfancytree/assets/fancytree/js/jquery.fancytree-all-deps.min.js'
             ];
             var loaded = 0;
