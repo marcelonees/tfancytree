@@ -1,9 +1,9 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use MarceloNees\TFancytree;
 use Adianti\Widget\Base\TElement;
 use Adianti\Control\TAction;
+use MarceloNees\TFancytree\TFancytree;
 
 // Dados de exemplo
 $data = [
